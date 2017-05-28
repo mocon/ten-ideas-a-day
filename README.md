@@ -1,4 +1,4 @@
-# Mobile Preview
+# Ten Ideas a Day
 
 For the project to build, **these files must exist with exact filenames**:
 
