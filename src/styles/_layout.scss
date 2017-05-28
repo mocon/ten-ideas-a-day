@@ -45,6 +45,7 @@
 
 .app-main__left-column,
 .app-main__right-column {
+    flex-direction: column;
     padding-top: ($unit * 2);
     padding-bottom: ($unit * 3);
     width: 50%;

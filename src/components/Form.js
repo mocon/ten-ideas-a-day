@@ -1,5 +1,6 @@
 /* eslint react/jsx-no-bind: 0 */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Form extends Component {
     constructor(props) {
@@ -19,13 +20,13 @@ class Form extends Component {
     }
 
     onChange = () => {
-        this.setState({ formInputText: this.formInput.value });
-        console.log('onChange:', this.state.formInputText);
+        console.log(this.formInput);
+        this.props.onChange(this.formInput.val);
     }
 
-    onClickButton = (event) => {
-        console.log('onClickButton:', this.state.formInputText);
-        event.preventDefault();
+    onClickButton = (e) => {
+        e.preventDefault();
+        this.props.onSubmit();
         this.clearForm();
     }
 
@@ -36,7 +37,7 @@ class Form extends Component {
                     className="form-input"
                     type="text"
                     ref={ (input) => { this.formInput = input; } }
-                    onChange={ this.onChange }
+                    onChange={ () => this.onChange() }
                     placeholder=""
                     value={ this.state.formInputText }
                 />
@@ -52,7 +53,9 @@ class Form extends Component {
 }
 
 Form.propTypes = {
-    submitForm: React.PropTypes.func
+    newIdea: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired
 };
 
 export default Form;
