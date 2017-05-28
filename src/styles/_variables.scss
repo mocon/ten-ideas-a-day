@@ -1,0 +1,17 @@
+$unit: 1rem;
+
+$mobile-breakpoint: 544;
+
+// Usage:
+// @media #{$mobile-width} {
+//     ...
+// }
+$mobile-width: 'only screen and (max-width: #{$mobile-breakpoint}px)';
+
+$primary: #9b4dca;
+$gray-1: #1e2d35;
+$gray-2: #32353a;
+$gray-3: #3c424e;
+$gray-4: #4e5157;
+$gray-5: #8e9198;
+$gray-6: #c8c9ca;

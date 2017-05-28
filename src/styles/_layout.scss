@@ -1,0 +1,74 @@
+.app-wrapper,
+.app-header,
+.app-main,
+.app-flex-container,
+.app-main__left-column,
+.app-main__right-column,
+.app-footer {
+    display: flex;
+}
+
+.app-header,
+.app-main,
+.app-footer {
+    width: 100%;
+}
+
+.app-wrapper {
+    flex-direction: column;
+    flex: 1;
+    background-color: rgba($gray-6, 0.3);
+}
+
+.app-header {
+    background-color: rgba(white, 0.95);
+    align-self: flex-start;
+    padding: ($unit * 2) 0 ($unit * 3);
+}
+
+.app-main {
+    flex: 1;
+    flex-direction: row;
+
+    @media #{$mobile-width} {
+        flex-direction: column;
+    }
+}
+
+.app-flex-container {
+    flex-direction: row;
+
+    @media #{$mobile-width} {
+        flex-direction: column;
+    }
+}
+
+.app-main__left-column,
+.app-main__right-column {
+    padding-top: ($unit * 2);
+    padding-bottom: ($unit * 3);
+    width: 50%;
+
+    @media #{$mobile-width} {
+        width: 100%;
+    }
+}
+
+.app-main__left-column {
+    padding-right: ($unit * 2);
+
+    @media #{$mobile-width} {
+        padding-right: 0;
+    }
+}
+
+.app-main__right-column {
+    @media #{$mobile-width} {
+        padding-top: 0;
+    }
+}
+
+.app-footer {
+    align-self: flex-end;
+    padding: ($unit * 4) 0;
+}
