@@ -17,11 +17,7 @@ Only files inside `public` can be used from `public/index.html`. Read instructio
 
 You can, however, create more top-level directories. They will not be included in the production build so you can use them for things like documentation.
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### Live Development
+## Live Development
 
 ```
 yarn start
@@ -31,7 +27,7 @@ Runs the app in the development mode. Open [localhost:3000](http://localhost:300
 
 The page will reload if you make edits. You will also see any lint errors in the console.
 
-### Testing
+## Testing
 
 ```
 yarn test
@@ -39,7 +35,7 @@ yarn test
 
 Launches the test runner in the interactive watch mode.
 
-### Build
+## Build
 
 ```
 yarn build
@@ -49,7 +45,7 @@ Builds the app for production to the `build` folder. It correctly bundles React 
 
 The build is minified and the filenames include the hashes. The app is ready to be deployed!
 
-### Deploy
+## Deployment
 
 ```
 yarn run deploy
@@ -57,7 +53,7 @@ yarn run deploy
 
 Deploys the `master` branch to [mocon.github.io/ten-ideas-a-day](https://mocon.github.io/ten-ideas-a-day/) by merging it to the `gh-pages` branch.
 
-### Clean
+## Clean install dependencies
 
 ```
 yarn run clean
