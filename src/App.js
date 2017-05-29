@@ -2,14 +2,9 @@
 import React, { Component } from 'react';
 import Table from './components/Table';
 import fire from './firebase';
+import { sortByProperty } from './helpers';
 
 const currentYear = new Date().getFullYear();
-
-const sortByDate = (arr) => {
-    return arr.sort((a, b) => {
-        return a[0].dateCreated - b[0].dateCreated;
-    });
-};
 
 export default class App extends Component {
     constructor(props) {
@@ -22,20 +17,10 @@ export default class App extends Component {
 
     componentWillMount() {
         // Create reference to ideas in Firebase Database
-        let ideasRef = fire.database().ref('ideas').orderByKey().limitToLast(100);
+        let ideasRef = fire.database().ref('ideas');
 
-        // Update React state when idea is added to Firebase database
-        ideasRef.on('child_added', snapshot => {
-            let idea = {
-                id: snapshot.key,
-                text: snapshot.val().text,
-                rating: snapshot.val().rating,
-                votes: snapshot.val().votes,
-                dateCreated: snapshot.val().dateCreated
-            };
-
-            this.setState({ ideas: [idea].concat(this.state.ideas) });
-        });
+        // Update state with snapshot value
+        ideasRef.on('value', snapshot => this.setState({ ideas: snapshot.val() }));
     }
 
     componentDidMount() {
@@ -56,7 +41,8 @@ export default class App extends Component {
             dateCreated: + new Date()
         };
 
-        fire.database().ref('ideas').push(newIdea); // Send the message to Firebase
+        // Send the message to Firebase
+        fire.database().ref('ideas').push(newIdea);
         this.formInput.value = '';
         this.formInput.focus();
     }
@@ -66,11 +52,15 @@ export default class App extends Component {
     }
 
     render() {
-        const hasIdeas = (this.state.ideas !== null) ? true : false;
-        if (hasIdeas) {
-            this.state.ideas.forEach((idea) => {
-                console.log(idea.id);
-            });
+        const hasFetchedIdeas = (this.state.ideas !== null) ? true : false;
+        let ideasByDate = null;
+        let ideasByRating = null;
+
+        if (hasFetchedIdeas) {
+            const ideas = this.state.ideas;
+
+            ideasByDate = sortByProperty(ideas, 'dateCreated', false);
+            ideasByRating = sortByProperty(ideas, 'rating', false);
         }
 
         return (
@@ -95,11 +85,15 @@ export default class App extends Component {
                     <div className="container app-flex-container">
                         <section className="app-main__left-column">
                             <h4 className="app-subtitle">Recent ideas go here</h4>
-                            <Table />
+                            <Table
+                                ideas={ (ideasByDate !== null) ? ideasByDate : null }
+                            />
                         </section>
                         <section className="app-main__right-column">
                             <h4 className="app-subtitle">Top ideas</h4>
-                            <Table />
+                            <Table
+                                ideas={ (ideasByRating !== null) ? ideasByRating : null }
+                            />
                         </section>
                     </div>
                 </main>
