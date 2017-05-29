@@ -29,6 +29,8 @@
 .app-main {
     flex: 1;
     flex-direction: row;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
 
     @media #{$mobile-width} {
         flex-direction: column;
@@ -51,6 +53,7 @@
     width: 50%;
 
     @media #{$mobile-width} {
+        display: block;
         width: 100%;
     }
 }
@@ -72,4 +75,8 @@
 .app-footer {
     align-self: flex-end;
     padding: ($unit * 4) 0;
+
+    @media #{$mobile-width} {
+        display: none;
+    }
 }

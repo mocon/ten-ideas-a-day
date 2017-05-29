@@ -84,13 +84,13 @@ export default class App extends Component {
                 <main className="app-main">
                     <div className="container app-flex-container">
                         <section className="app-main__left-column">
-                            <h4 className="app-subtitle">Recent ideas go here</h4>
+                            <h4 className="app-subtitle">Recent Ideas</h4>
                             <Table
                                 ideas={ (ideasByDate !== null) ? ideasByDate : null }
                             />
                         </section>
                         <section className="app-main__right-column">
-                            <h4 className="app-subtitle">Top ideas</h4>
+                            <h4 className="app-subtitle">Top Ideas</h4>
                             <Table
                                 ideas={ (ideasByRating !== null) ? ideasByRating : null }
                             />
