@@ -53,14 +53,12 @@ export default class App extends Component {
 
     render() {
         const hasFetchedIdeas = (this.state.ideas !== null) ? true : false;
-        let ideasByDate = null;
-        let ideasByRating = null;
+        let ideasByDate = null,
+            ideasByRating = null;
 
         if (hasFetchedIdeas) {
-            const ideas = this.state.ideas;
-
-            ideasByDate = sortByProperty(ideas, 'dateCreated', false);
-            ideasByRating = sortByProperty(ideas, 'rating', false);
+            ideasByDate = sortByProperty(this.state.ideas, 'dateCreated', false);
+            ideasByRating = sortByProperty(this.state.ideas, 'rating', false);
         }
 
         return (
