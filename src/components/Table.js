@@ -8,19 +8,19 @@ class Table extends Component {
             <table>
                 <thead>
                     <tr>
-                        <th>+/-</th>
+                        <th className="text-center">+/-</th>
                         <th>Idea</th>
-                        <th>Score</th>
+                        <th className="text-center">Score</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        this.props.ideas && this.props.ideas.map((idea, index) => {
+                        this.props.ideas && this.props.ideas.map((idea) => {
                             return (
-                                <tr key={ index }>
-                                    <td>[ ]</td>
+                                <tr key={ idea.id }>
+                                    <td className="text-center">[ ]</td>
                                     <td>{ idea.text }</td>
-                                    <td>{ idea.rating }</td>
+                                    <td className="text-center">{ idea.rating }</td>
                                 </tr>
                             );
                         })
