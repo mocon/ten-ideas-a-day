@@ -1,10 +1,9 @@
 /* eslint react/jsx-no-bind: 0 */
 import React, { Component } from 'react';
 import Table from './components/Table';
+import Footer from './components/Footer';
 import fire from './firebase';
 import { sortByProperty } from './helpers';
-
-const currentYear = new Date().getFullYear();
 
 export default class App extends Component {
     constructor(props) {
@@ -16,24 +15,16 @@ export default class App extends Component {
     }
 
     componentWillMount() {
-        // Create reference to ideas in Firebase Database
-        let ideasRef = fire.database().ref('ideas');
-
-        // Update state with snapshot value
+        let ideasRef = fire.database().ref('ideas').limitToFirst(100);
         ideasRef.on('value', snapshot => this.setState({ ideas: snapshot.val() }));
     }
 
-    componentDidMount() {
-        this.formInput.focus();
-    }
+    componentDidMount() { this.formInput.focus(); }
 
-    componentWillUnmount() {
-        this.firebaseRef.off();
-    }
+    componentWillUnmount() { this.firebaseRef.off(); }
 
     addMessage(e) {
         e.preventDefault();
-
         const newIdea = {
             text: this.formInput.value,
             rating: 90,
@@ -41,15 +32,12 @@ export default class App extends Component {
             dateCreated: + new Date()
         };
 
-        // Send the message to Firebase
         fire.database().ref('ideas').push(newIdea);
         this.formInput.value = '';
         this.formInput.focus();
     }
 
-    handleOnChange = () => {
-        this.setState({ newIdea: this.formInput.value });
-    }
+    handleOnChange = () => this.setState({ newIdea: this.formInput.value });
 
     render() {
         const hasFetchedIdeas = (this.state.ideas !== null) ? true : false;
@@ -83,23 +71,15 @@ export default class App extends Component {
                     <div className="container app-flex-container">
                         <section className="app-main__left-column">
                             <h4 className="app-subtitle">Recent Ideas</h4>
-                            <Table
-                                ideas={ (ideasByDate !== null) ? ideasByDate : null }
-                            />
+                            <Table ideas={ ideasByDate && ideasByDate } />
                         </section>
                         <section className="app-main__right-column">
                             <h4 className="app-subtitle">Top Ideas</h4>
-                            <Table
-                                ideas={ (ideasByRating !== null) ? ideasByRating : null }
-                            />
+                            <Table ideas={ ideasByRating && ideasByRating } />
                         </section>
                     </div>
                 </main>
-                <footer className="app-footer">
-                    <div className="container">
-                        &copy; { currentYear }
-                    </div>
-                </footer>
+                <Footer />
             </div>
         );
     }
